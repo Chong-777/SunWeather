@@ -11,7 +11,7 @@ import com.example.sunweather.databinding.PlaceItemBinding
 import com.example.sunweather.logic.model.Place
 import com.example.sunweather.ui.weather.WeatherActivity
 
-class PlaceAdapter(private val fragment: Fragment, private val placeList: List<Place>) :
+class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: List<Place>) :
     RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
 
     inner class ViewHolder(binding: PlaceItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -30,7 +30,9 @@ class PlaceAdapter(private val fragment: Fragment, private val placeList: List<P
                 putExtra("location_lat", place.location.lat)
                 putExtra("place_name", place.name)
             }
+            fragment.viewModel.savePlace(place)
             fragment.startActivity(intent)
+            fragment.activity?.finish()
         }
         return holder
     }
